@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PXL Kraft — Websites That Book You More Jobs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080808;
+      --bg2: #0e0e0e;
+      --bg3: #141414;
+      --border: #1e1e1e;
+      --text: #e8e6e1;
+      --muted: #6b6b6b;
+      --muted2: #444;
+      --accent: #f0ede6;
+      --white: #f5f3ef;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ─── UTILITIES ─── */
+    .badge {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+
+    .section-label {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .container--wide {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ─── SCROLL ANIMATIONS ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+    .reveal-delay-6 { transition-delay: 0.6s; }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 0 40px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--white);
+      color: #080808;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: 3px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--text);
+      transition: all 0.3s;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 80px;
+      padding-top: 120px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--serif);
+      font-size: clamp(120px, 20vw, 280px);
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.04);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 2px;
+      margin-bottom: 32px;
+    }
+
+    .hero-headline {
+      font-family: var(--serif);
+      font-size: clamp(44px, 7vw, 96px);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      max-width: 800px;
+      margin-bottom: 28px;
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .hero-subhead {
+      font-size: clamp(16px, 2vw, 19px);
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.65;
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      color: #080808;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 14px 24px;
+      border-radius: 3px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 400;
+      padding: 14px 24px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--muted2); color: var(--white); }
+
+    /* Stats bar */
+    .stats-bar {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+      width: fit-content;
+    }
+
+    .stat-item {
+      padding: 16px 28px;
+      border-right: 1px solid var(--border);
+      text-align: center;
+    }
+    .stat-item:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      display: block;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ─── MARQUEE ─── */
+    .marquee-section {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      overflow: hidden;
+      background: var(--bg2);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 22s linear infinite;
+      width: max-content;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 0 32px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .marquee-dot {
+      width: 3px;
+      height: 3px;
+      background: var(--muted2);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ─── PRICING STRIP ─── */
+    .pricing-strip {
+      background: var(--white);
+      color: #080808;
+      padding: 28px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .pricing-headline {
+      font-family: var(--serif);
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #080808;
+    }
+
+    .pricing-sub {
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* ─── SECTION BASE ─── */
+    section {
+      padding: 120px 0;
+    }
+
+    /* ─── PROBLEM SECTION ─── */
+    .problem-section {
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .problem-bg-word {
+      position: absolute;
+      right: -2%;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--serif);
+      font-size: clamp(120px, 18vw, 260px);
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.04);
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 56px;
+    }
+
+    .problem-body {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-weight: 300;
+      max-width: 480px;
+    }
+
+    .pain-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pain-item {
+      display: flex;
+      gap: 16px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg2);
+      transition: border-color 0.2s;
+    }
+    .pain-item:hover { border-color: var(--muted2); }
+
+    .pain-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .pain-text {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .pain-text strong {
+      color: var(--text);
+      font-weight: 500;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* ─── FEATURES ─── */
+    .features-section {
+      border-top: 1px solid var(--border);
+    }
+
+    .features-header {
+      margin-bottom: 64px;
+    }
+
+    .features-headline {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 68px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+
+    .features-sub {
+      font-size: 16px;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 480px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .feature-card {
+      padding: 36px 32px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.25s;
+    }
+    .feature-card:hover { background: var(--bg2); }
+    .feature-card:nth-child(3n) { border-right: none; }
+    .feature-card:nth-child(n+4) { border-bottom: none; }
+
+    .feature-icon {
+      font-size: 24px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .feature-title {
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    .how-section {
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .how-bg-word {
+      position: absolute;
+      left: -2%;
+      bottom: -4%;
+      font-family: var(--serif);
+      font-size: clamp(100px, 16vw, 220px);
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.03);
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .how-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 80px;
+      align-items: end;
+    }
+
+    .how-headline {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 68px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      line-height: 1.05;
+    }
+
+    .how-sub {
+      font-size: 16px;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-card {
+      background: var(--bg);
+      padding: 48px 36px;
+      position: relative;
+    }
+
+    .step-num {
+      font-family: var(--serif);
+      font-size: 72px;
+      font-weight: 900;
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+      margin-bottom: 24px;
+      letter-spacing: -0.04em;
+    }
+
+    .step-title {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .step-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials-section {
+      border-top: 1px solid var(--border);
+      background: var(--bg2);
+    }
+
+    .testimonials-header {
+      margin-bottom: 64px;
+    }
+
+    .testimonials-headline {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      line-height: 1.05;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .testimonial-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 36px 32px;
+      transition: border-color 0.2s;
+    }
+    .testimonial-card:hover { border-color: var(--muted2); }
+
+    .stars {
+      font-size: 13px;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      color: #c8b89a;
+    }
+
+    .testimonial-quote {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.75;
+      margin-bottom: 24px;
+      font-weight: 400;
+    }
+
+    .testimonial-author {
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+
+    .author-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .author-role {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ─── FAQ ─── */
+    .faq-section {
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-layout {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .faq-headline {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      line-height: 1.1;
+      position: sticky;
+      top: 80px;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 24px 0;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .faq-question:hover { color: var(--white); }
+
+    .faq-chevron {
+      width: 18px;
+      height: 18px;
+      border: 1px solid var(--muted2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.3s, border-color 0.2s;
+      font-size: 10px;
+      color: var(--muted);
+    }
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+      border-color: var(--muted);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+    }
+
+    .faq-answer-inner {
+      padding-bottom: 24px;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    /* ─── FINAL CTA ─── */
+    .cta-section {
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-bg-text {
+      position: absolute;
+      bottom: -6%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--serif);
+      font-size: clamp(80px, 14vw, 200px);
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.04);
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.04em;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-headline {
+      font-family: var(--serif);
+      font-size: clamp(32px, 5vw, 68px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      line-height: 1.05;
+      max-width: 760px;
+      margin: 0 auto 20px;
+    }
+
+    .cta-sub {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 460px;
+      margin: 0 auto 40px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .cta-trust {
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--muted2);
+      letter-spacing: 0.06em;
+    }
+    .cta-trust span { margin: 0 8px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--muted2);
+    }
+
+    /* ─── SECTION HEADLINES COMMON ─── */
+    .section-headline {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5.5vw, 72px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .container, .container--wide { padding: 0 24px; }
+      section { padding: 80px 0; }
+
+      .hero { padding-top: 100px; padding-bottom: 60px; }
+
+      .problem-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .feature-card:nth-child(2n) { border-right: none; }
+      .feature-card:nth-child(3n) { border-right: 1px solid var(--border); }
+      .feature-card:nth-child(n+5) { border-bottom: none; }
+      .feature-card:nth-child(5), .feature-card:nth-child(6) { border-bottom: none; }
+
+      .how-header { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+
+      .testimonials-grid { grid-template-columns: 1fr; }
+
+      .faq-layout { grid-template-columns: 1fr; gap: 40px; }
+      .faq-headline { position: static; }
+
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 600px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-card { border-right: none !important; }
+      .feature-card:not(:last-child) { border-bottom: 1px solid var(--border) !important; }
+      .feature-card:last-child { border-bottom: none !important; }
+
+      .stats-bar { width: 100%; flex-wrap: wrap; }
+      .stat-item { flex: 1; min-width: 50%; }
+
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-secondary { text-align: center; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">PXL Kraft</a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="https://calendly.com/freesite/website" target="_blank" rel="noopener" class="nav-cta">Book Free Call</a>
+    <button class="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-text" aria-hidden="true">Websites</div>
+    <div class="container hero-content">
+      <div class="hero-badge reveal">Built for Home Service Pros</div>
+      <h1 class="hero-headline reveal reveal-delay-1">
+        Stop Losing Jobs<br>
+        to Competitors<br>
+        <em>With Better Websites</em>
+      </h1>
+      <p class="hero-subhead reveal reveal-delay-2">
+        We build fast, beautiful, lead-generating websites for plumbers, HVAC techs, roofers & more — $0 upfront, everything handled for you.
+      </p>
+      <div class="hero-actions reveal reveal-delay-3">
+        <a href="https://calendly.com/freesite/website" target="_blank" rel="noopener" class="btn-primary">
+          Book Your Free Strategy Call →
+        </a>
+        <a href="#how" class="btn-secondary">See How It Works</a>
+      </div>
+      <div class="stats-bar reveal reveal-delay-4">
+        <div class="stat-item">
+          <span class="stat-num">230+</span>
+          <span class="stat-label">Sites Launched</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">3.2×</span>
+          <span class="stat-label">Avg. Lead Increase</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">48hr</span>
+          <span class="stat-label">Avg. Delivery</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">4.9★</span>
+          <span class="stat-label">Client Rating</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <div class="marquee-item">Plumbers <span class="marquee-dot"></span></div>
+      <div class="marquee-item">HVAC Techs <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Roofers <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Electricians <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Landscapers <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Painters <span class="marquee-dot"></span></div>
+      <div class="marquee-item">General Contractors <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Pest Control <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Pool Services <span class="marquee-dot"></span></div>
+      <div class="marquee-item">$0 Upfront <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Live in 48 Hours <span class="marquee-dot"></span></div>
+      <div class="marquee-item">$100/mo <span class="marquee-dot"></span></div>
+      <!-- duplicate for seamless loop -->
+      <div class="marquee-item">Plumbers <span class="marquee-dot"></span></div>
+      <div class="marquee-item">HVAC Techs <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Roofers <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Electricians <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Landscapers <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Painters <span class="marquee-dot"></span></div>
+      <div class="marquee-item">General Contractors <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Pest Control <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Pool Services <span class="marquee-dot"></span></div>
+      <div class="marquee-item">$0 Upfront <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Live in 48 Hours <span class="marquee-dot"></span></div>
+      <div class="marquee-item">$100/mo <span class="marquee-dot"></span></div>
+    </div>
+  </div>
+
+  <!-- PRICING STRIP -->
+  <div class="pricing-strip">
+    <div>
+      <div class="pricing-headline">$0 upfront. Just $100/mo. Cancel anytime.</div>
+      <div class="pricing-sub" style="margin-top:6px;">Your website is built for free — we only win when you do.</div>
+    </div>
+    <a href="https://calendly.com/freesite/website" target="_blank" rel="noopener" class="btn-primary" style="background:#080808;color:#f5f3ef;white-space:nowrap;">
+      Get Started Free →
+    </a>
+  </div>
+
+  <!-- PROBLEM SECTION -->
+  <section class="problem-section">
+    <div class="problem-bg-word" aria-hidden="true">Invisible</div>
+    <div class="container">
+      <div class="badge reveal">The Reality</div>
+      <h2 class="section-headline reveal reveal-delay-1">Your Competitors Are Booking<br>the Jobs <em style="font-style:italic;color:var(--muted);">You Should Be Getting</em></h2>
+      <div class="problem-grid">
+        <div class="reveal reveal-delay-2">
+          <p class="problem-body">
+            Right now, someone in your service area is Googling "plumber near me" or "HVAC repair." If your website doesn't show up — or looks like it was built in 2009 — that call goes to someone else.
+          </p>
+        </div>
+        <ul class="pain-list reveal reveal-delay-3">
+          <li class="pain-item">
+            <span class="pain-icon">❌</span>
+            <div class="pain-text">
+              <strong>No website at all</strong>
+              You're invisible to the 97% of customers who search online before calling anyone.
+            </div>
+          </li>
+          <li class="pain-item">
+            <span class="pain-icon">❌</span>
+            <div class="pain-text">
+              <strong>Outdated, slow site</strong>
+              A site that takes 5+ seconds to load loses half its visitors before they even see your number.
+            </div>
+          </li>
+          <li class="pain-item">
+            <span class="pain-icon">❌</span>
+            <div class="pain-text">
+              <strong>No leads coming in</strong>
+              A pretty website means nothing if it doesn't have clear CTAs, click-to-call, and trust signals that convert visitors into booked jobs.
+            </div>
+          </li>
+          <li class="pain-item">
+            <span class="pain-icon">❌</span>
+            <div class="pain-text">
+              <strong>Overpaying for garbage</strong>
+              You paid some agency $3K–$5K for a template site that doesn't rank and doesn't convert.
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <div class="features-header">
+        <div class="badge reveal">What You Get</div>
+        <h2 class="features-headline reveal reveal-delay-1">A Website Engineered<br><em style="font-style:italic;color:var(--muted);">to Book You More Jobs</em></h2>
+        <p class="features-sub reveal reveal-delay-2">Not just a website — a 24/7 lead machine built specifically for home service businesses.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <span class="feature-icon">⚡</span>
+          <div class="feature-title">Delivered in 48 Hours</div>
+          <p class="feature-desc">No weeks of back-and-forth. Tell us about your business, and we'll have a polished, professional site ready in two days — not two months.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-1">
+          <span class="feature-icon">🎨</span>
+          <div class="feature-title">Custom Design, Not a Template</div>
+          <p class="feature-desc">Every site is designed around your brand, your services, and your local market. No cookie-cutter templates that look like everyone else in town.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-2">
+          <span class="feature-icon">📈</span>
+          <div class="feature-title">SEO Built Into Every Page</div>
+          <p class="feature-desc">We structure every page for local search — your city, your services, your Google Business Profile — so you show up when people actually search.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-3">
+          <span class="feature-icon">📱</span>
+          <div class="feature-title">Mobile-First & Lightning Fast</div>
+          <p class="feature-desc">Over 70% of your customers are searching from their phone. Every site is optimized for speed and mobile usability — Google rewards that with higher rankings.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-4">
+          <span class="feature-icon">📞</span>
+          <div class="feature-title">Lead Capture That Actually Works</div>
+          <p class="feature-desc">Click-to-call buttons, quote request forms, and booking widgets placed exactly where they convert — not buried in a footer nobody scrolls to.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-5">
+          <span class="feature-icon">🔧</span>
+          <div class="feature-title">We Handle Everything, Forever</div>
+          <p class="feature-desc">Content updates, seasonal changes, new service pages, tech fixes — it's all included in your $100/mo. You run your business. We run your website.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section" id="how">
+    <div class="how-bg-word" aria-hidden="true">48hrs</div>
+    <div class="container">
+      <div class="how-header">
+        <div>
+          <div class="badge reveal">3 Simple Steps</div>
+          <h2 class="how-headline reveal reveal-delay-1">From Zero to Booked<br><em style="font-style:italic;color:var(--muted);">Jobs in 48 Hours</em></h2>
+        </div>
+        <p class="how-sub reveal reveal-delay-2">No tech skills required. No homework. We do the heavy lifting so you can focus on the actual work.</p>
+      </div>
+      <div class="steps">
+        <div class="step-card reveal">
+          <div class="step-num">01</div>
+          <div class="step-title">Book Your Free Strategy Call</div>
+          <p class="step-desc">We learn about your business, services, and service area. You tell us what makes you different — we figure out how to turn that into leads.</p>
+        </div>
+        <div class="step-card reveal reveal-delay-1">
+          <div class="step-num">02</div>
+          <div class="step-title">We Build Your Site (For Free)</div>
+          <p class="step-desc">Within 48 hours, you'll get a fully custom, mobile-optimized, SEO-ready website designed to convert visitors into phone calls and booked jobs.</p>
+        </div>
+        <div class="step-card reveal reveal-delay-2">
+          <div class="step-num">03</div>
+          <div class="step-title">Launch & Start Getting Leads</div>
+          <p class="step-desc">We go live, connect your Google Business Profile, and your site starts working for you. We handle updates and optimization month after month.</p>
+        </div>
+      </div>
+      <div style="margin-top:48px;" class="reveal">
+        <a href="https://calendly.com/freesite/website" target="_blank" rel="noopener" class="btn-primary">
+          Book Your Free Strategy Call →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section" id="results">
+    <div class="container">
+      <div class="testimonials-header">
+        <div class="badge reveal">Real Results</div>
+        <h2 class="testimonials-headline reveal reveal-delay-1">Home Service Pros<br><em style="font-style:italic;color:var(--muted);">Who Switched to PXL Kraft</em></h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="stars">★★★★★</div>
+          <blockquote class="testimonial-quote">
+            "Within the first month, our inbound calls jumped by about 40%. I used to get maybe 2-3 calls a week from the website — now it's 2-3 a day. Best $100 I spend every month."
+          </blockquote>
+          <div class="testimonial-author">
+            <div class="author-name">Mike R.</div>
+            <div class="author-role">R&M Plumbing, Dallas TX</div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal reveal-delay-1">
+          <div class="stars">★★★★★</div>
+          <blockquote class="testimonial-quote">
+            "I paid another company $4,000 for a website that did absolutely nothing. PXL Kraft built me a better one for free and I'm already ranking on the first page for 'HVAC repair Austin.' Wish I'd found these guys sooner."
+          </blockquote>
+          <div class="testimonial-author">
+            <div class="author-name">James T.</div>
+            <div class="author-role">CoolBreeze HVAC, Austin TX</div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal reveal-delay-2">
+          <div class="stars">★★★★★</div>
+          <blockquote class="testimonial-quote">
+            "I'm not a tech guy. I just wanted something that looked professional and made my phone ring. They nailed it. The site was done in two days and I didn't have to do anything."
+          </blockquote>
+          <div class="testimonial-author">
+            <div class="author-name">Carlos D.</div>
+            <div class="author-role">Summit Roofing, Phoenix AZ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="faq-layout">
+        <div>
+          <div class="badge reveal">FAQ</div>
+          <h2 class="faq-headline reveal reveal-delay-1">Questions<br>We Get<br>a Lot</h2>
+        </div>
+        <div class="faq-list reveal reveal-delay-2">
+          <div class="faq-item">
+            <button class="faq-question">
+              Why is the website free? What's the catch?
+              <span class="faq-chevron">↓</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">No catch. We invest in building your site because we know that when your business grows, you'll stay with us. The $100/mo covers hosting, maintenance, updates, and ongoing optimization. If it's not working for you, cancel anytime — no contracts.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              Do I own my website?
+              <span class="faq-chevron">↓</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">You own all your content, branding, and copy. If you ever decide to leave, we'll help you export everything. We never hold your business hostage.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              I already have a website. Can you rebuild it?
+              <span class="faq-chevron">↓</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">Absolutely. Most of our clients come to us with an outdated site that isn't generating leads. We'll rebuild it from scratch, optimized for speed, SEO, and conversions — and you pay $0 for the build.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              What if I need changes after the site is live?
+              <span class="faq-chevron">↓</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">That's exactly what the $100/mo is for. Need to add a service page? Update your hours? Swap out photos? Just shoot us a message and we'll handle it — usually within 24 hours.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              Will my site rank on Google?
+              <span class="faq-chevron">↓</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">Every site we build is optimized for local SEO out of the box — proper page structure, meta tags, schema markup, mobile speed, and Google Business Profile integration. We can't guarantee the #1 spot (no one honestly can), but our clients see an average 3.2× increase in organic leads within 90 days.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              How is this only $100/mo? Other agencies charge thousands.
+              <span class="faq-chevron">↓</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">We keep overhead low, use modern tools that let us move fast, and we don't pad invoices with "strategy meetings" and "discovery phases." You get a senior-level website without the agency markup.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cta-section">
+    <div class="cta-bg-text" aria-hidden="true">PXL Kraft</div>
+    <div class="container cta-content">
+      <div class="badge reveal" style="margin:0 auto 28px;">Let's Build</div>
+      <h2 class="cta-headline reveal reveal-delay-1">
+        Your Next Customer Is Googling Right Now.<br>
+        <em style="font-style:italic;color:var(--muted);">Will They Find You — or Your Competitor?</em>
+      </h2>
+      <p class="cta-sub reveal reveal-delay-2">
+        Book a free 15-minute strategy call. No pressure, no pitch — just a clear plan to start getting more leads from your website.
+      </p>
+      <a href="https://calendly.com/freesite/website" target="_blank" rel="noopener" class="btn-primary reveal reveal-delay-3" style="margin:0 auto;display:inline-flex;">
+        Book Your Free Strategy Call →
+      </a>
+      <p class="cta-trust reveal reveal-delay-4">
+        <span>$0 upfront</span>·<span>Live in 48 hours</span>·<span>Cancel anytime</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="footer-logo">PXL Kraft</a>
+    <ul class="footer-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="https://calendly.com/freesite/website" target="_blank" rel="noopener">Book a Call</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 PXL Kraft. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    // Trigger hero reveals immediately
+    document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), 100 + i * 120);
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
