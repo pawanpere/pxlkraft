@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service — PXL Kraft</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080808;
+      --bg2: #0e0e0e;
+      --bg3: #141414;
+      --border: #1e1e1e;
+      --text: #e8e6e1;
+      --muted: #6b6b6b;
+      --muted2: #444;
+      --accent: #f0ede6;
+      --white: #f5f3ef;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 0 40px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--white);
+      color: #080808;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: 3px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--text);
+      transition: all 0.3s;
+    }
+
+    /* ─── HERO / HEADER ─── */
+    .tos-hero {
+      padding-top: 140px;
+      padding-bottom: 60px;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .tos-hero .badge {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+
+    .tos-hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .tos-hero .last-updated {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    /* ─── CONTENT ─── */
+    .tos-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 80px 32px 100px;
+    }
+
+    .tos-intro {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 60px;
+      font-weight: 300;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tos-section {
+      margin-bottom: 48px;
+    }
+
+    .tos-section h2 {
+      font-family: var(--serif);
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .tos-section h3 {
+      font-family: var(--sans);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 12px;
+      margin-top: 28px;
+    }
+
+    .tos-section p {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.8;
+      margin-bottom: 16px;
+      font-weight: 300;
+    }
+
+    .tos-section ul, .tos-section ol {
+      margin-bottom: 16px;
+      padding-left: 24px;
+    }
+
+    .tos-section li {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.8;
+      margin-bottom: 8px;
+      font-weight: 300;
+    }
+
+    .tos-section a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s;
+    }
+    .tos-section a:hover {
+      color: var(--white);
+    }
+
+    .info-box {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 24px 28px;
+      margin: 20px 0;
+    }
+
+    .info-box p {
+      margin-bottom: 8px;
+    }
+    .info-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .tos-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-links a.active {
+      color: var(--text);
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--muted2);
+    }
+
+    /* ─── BACK TO TOP ─── */
+    .back-to-top {
+      text-align: center;
+      padding: 40px 32px;
+      border-top: 1px solid var(--border);
+    }
+    .back-to-top a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .back-to-top a:hover { color: var(--text); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .tos-content { padding: 60px 24px 80px; }
+      .tos-hero { padding-top: 120px; padding-bottom: 48px; }
+
+      footer { flex-direction: column; align-items: flex-start; padding: 40px 24px; }
+      .footer-links { flex-wrap: wrap; gap: 16px; }
+    }
+
+    @media (max-width: 600px) {
+      .tos-hero h1 { font-size: 32px; }
+      .tos-content { padding: 48px 20px 60px; }
+      .info-box { padding: 20px; }
+      .footer-links { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <a href="index.html" class="nav-logo">PXL Kraft</a>
+    <ul class="nav-links">
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#how">How It Works</a></li>
+      <li><a href="index.html#results">Results</a></li>
+      <li><a href="index.html#faq">FAQ</a></li>
+    </ul>
+    <a href="https://calendly.com/freesite/website" target="_blank" rel="noopener" class="nav-cta">Book Free Call</a>
+    <button class="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO / HEADER -->
+  <section class="tos-hero">
+    <div class="badge">Legal</div>
+    <h1>Terms of Service</h1>
+    <p class="last-updated">Last updated: March 24, 2026</p>
+  </section>
+
+  <!-- TERMS OF SERVICE CONTENT -->
+  <div class="tos-content">
+
+    <div class="tos-intro">
+      Welcome to PXL Kraft. These Terms of Service ("Terms") govern your access to and use of the PXL Kraft website located at pxlkraft.com (the "Site") and all related services provided by PXL Kraft ("we," "us," or "our"). By accessing or using our Site or engaging our services, you ("Client," "you," or "your") agree to be bound by these Terms. If you do not agree to these Terms, please do not use our Site or services.
+    </div>
+
+    <!-- 1. Scope and Applicability -->
+    <div class="tos-section">
+      <h2>1. Scope and Applicability</h2>
+      <p>These Terms apply to all visitors, users, and clients who access the Site or engage PXL Kraft for website design, development, hosting, and maintenance services, regardless of geographic location. Our services are available worldwide, and these Terms are intended to be enforceable internationally to the fullest extent permitted by applicable law.</p>
+      <p>By placing an order or subscribing to our services, you acknowledge that you have read, understood, and agree to be bound by these Terms, together with our <a href="privacy-policy.html">Privacy Policy</a>, which is incorporated herein by reference.</p>
+      <div class="info-box">
+        <p><strong>International Clients:</strong> If you are located outside the United States, certain provisions of these Terms may be subject to your local consumer protection laws. Where local laws provide greater protections than these Terms, your local laws shall prevail to the extent required.</p>
+      </div>
+    </div>
+
+    <hr class="tos-divider" />
+
+    <!-- 2. Eligibility -->
+    <div class="tos-section">
+      <h2>2. Eligibility</h2>
+      <p>To use our services, you must be at least eighteen (18) years of age, or the age of legal majority in your jurisdiction, whichever is greater. By agreeing to these Terms, you represent and warrant that you meet this eligibility requirement.</p>
+      <p>If you are entering into these Terms on behalf of a business entity, you represent and warrant that you have the legal authority to bind that entity to these Terms.</p>
+    </div>
+
+    <hr class="tos-divider" />
+
+    <!-- 3. Description of Services -->
+    <div class="tos-section">
+      <h2>3. Description of Services</h2>
+      <p>PXL Kraft provides professional website design and development services specifically tailored for home service professionals, including but not limited to plumbers, HVAC technicians, roofers, electricians, landscapers, painters, and general contractors. Our services include:</p>
+
+      <h3>3.1 Website Design and Development</h3>
+      <ul>
+        <li><strong>$0 upfront website build:</strong> We design and develop a custom website for your business at no initial cost. Every website is custom-designed to reflect your brand, services, and local market. We do not use generic templates.</li>
+        <li><strong>48-hour delivery:</strong> We aim to deliver your completed website within forty-eight (48) hours of receiving all necessary information and content from you. This timeline is an estimate and may vary depending on the complexity of the project and the timeliness of your responses.</li>
+      </ul>
+
+      <h3>3.2 Hosting and Maintenance</h3>
+      <ul>
+        <li><strong>Monthly subscription:</strong> After your website is built, you pay $100 per month (USD) for hosting, ongoing maintenance, content updates, technical support, and performance optimization.</li>
+        <li><strong>Cancel anytime:</strong> There are no long-term contracts. You may cancel your subscription at any time in accordance with Section 5 of these Terms.</li>
+      </ul>
+
+      <h3>3.3 Additional Services</h3>
+      <p>From time to time, PXL Kraft may offer additional services such as SEO optimization, Google Business Profile setup, content writing, and digital marketing support. These services may be subject to separate terms, pricing, or agreements, which will be communicated to you in advance.</p>
+    </div>
+
+    <hr class="tos-divider" />
+
+    <!-- 4. Service Estimates and Quotes -->
+    <div class="tos-section">
+      <h2>4. Service Estimates and Quotes</h2>
+      <p>Any estimates, quotes, or timelines provided by PXL Kraft are given in good faith and are based on the information available at the time. Estimates are not binding commitments unless expressly stated in writing.</p>
+      <p>Actual delivery times may vary depending on factors including but not limited to:</p>
+      <ul>
+        <li>The complexity and scope of the requested website</li>
+        <li>The timeliness of your provision of content, images, and feedback</li>
+        <li>Revisions and change requests made after the initial build has commenced</li>
+        <li>Unforeseen technical requirements or complications</li>
+      </ul>
+      <p>We will make reasonable efforts to communicate any anticipated delays promptly.</p>
+    </div>
+
+    <hr class="tos-divider" />
+
+    <!-- 5. Subscription Terms -->
+    <div class="tos-section">
+      <h2>5. Subscription Terms</h2>
+
+      <h3>5.1 Monthly Billing</h3>
+      <p>Your subscription fee of $100 USD per month is billed on a recurring monthly basis, beginning on the date your website goes live. Payment is due on the same calendar day each month (or the last day of the month if the billing date does not exist in a given month).</p>
+
+      <h3>5.2 Cancellation Policy</h3>
+      <p>You may cancel your subscription at any time by providing written notice to us at <a href="mailto:hello@pxlkraft.com">hello@pxlkraft.com</a>. Cancellation will take effect at the end of your current billing period. No refunds will be issued for partial months, except where required by applicable local law.</p>
+
+      <h3>5.3 What Happens After Cancellation</h3>
+      <p>Upon cancellation of your subscription:</p>
+      <ul>
+        <li>Your website will be taken offline within seven (7) days after the end of your final billing period.</li>
+        <li>We will provide you with an export of your content (text, images, and other media you provided) upon request, made within thirty (30) days of cancellation.</li>
+        <li>PXL Kraft retains ownership of the website design, code, and underlying architecture as outlined in Section 6.</li>
+        <li>Any custom domain name registered in your name remains your property. We will assist with any necessary DNS transfers.</li>
+      </ul>
+
+      <h3>5.4 Suspension of Service</h3>
+      <p>We reserve the right to suspend your website and services if your account is more than fifteen (15) days past due. We will provide at least two (2) written notices before suspending service. Suspended websites may be reactivated upon payment of all outstanding balances.</p>
+    </div>
+
+    <hr class="tos-divider" />
+
+    <!-- 6. Website Ownership and Content -->
+    <div class="tos-section">
+      <h2>6. Website Ownership and Content</h2>
+
+      <h3>6.1 Client Content</h3>
+      <p>You retain full ownership of all content you provide to us, including but not limited to text, photographs, logos, trademarks, and other media ("Client Content"). You grant PXL Kraft a non-exclusive, royalty-free license to use, display, and modify Client Content solely for the purpose of building, maintaining, and hosting your website during the term of your subscription.</p>
+
+      <h3>6.2 PXL Kraft Design and Code</h3>
+      <p>PXL Kraft retains ownership of all website design, layout, code, custom graphics created by PXL Kraft, development frameworks, and proprietary tools used in the creation and maintenance of your website ("PXL Kraft Materials"). While your subscription is active, you are granted a non-exclusive, non-transferable license to use PXL Kraft Materials as part of your hosted website.</p>
+      <p>Upon cancellation, the license to PXL Kraft Materials terminates, and you may not continue to use, reproduce, or distribute the website design or code without our prior written consent.</p>
+
+      <h3>6.3 Portfolio and Promotional Use</h3>
+      <p>PXL Kraft reserves the right to display your completed website in our portfolio, case studies, and promotional materials unless you request otherwise in writing.</p>
+    </div>
+
+    <hr class="tos-divider" />
+
+    <!-- 7. Payment Terms -->
+    <div class="tos-section">
+      <h2>7. Payment Terms</h2>
+
+      <h3>7.1 Currency</h3>
+      <p>All prices are quoted and billed in United States Dollars (USD). International clients are responsible for any currency conversion fees imposed by their bank or payment provider.</p>
+
+      <h3>7.2 International Transaction Fees</h3>
+      <p>Any foreign transaction fees, wire transfer fees, intermediary bank charges, or other costs associated with making international payments are the sole responsibility of the Client. PXL Kraft must receive the full $100 USD subscription amount each month.</p>
+
+      <h3>7.3 Payment Methods</h3>
+      <p>We accept payment via major credit cards, debit cards, and other payment methods as communicated during onboarding. All payment processing is handled by third-party payment processors, and your payment information is subject to their respective terms and privacy policies.</p>
+
+      <h3>7.4 Late Payments</h3>
+      <p>If payment is not received within five (5) days of the billing date, we will send a reminder notice. If payment remains outstanding for more than fifteen (15) days, we reserve the right to suspend your website. Accounts that remain unpaid for more than thirty (30) days may be terminated, and the website may be permanently removed.</p>
+
+      <h3>7.5 Taxes</h3>
+      <p>Subscription fees are exclusive of any applicable taxes, duties, or levies. You are responsible for all applicable taxes related to the services, including but not limited to sales tax, VAT, GST, or withholding tax as required by your jurisdiction.</p>
+    </div>
+
+    <hr class="tos-divider" />
+
+    <!-- 8. Intellectual Property -->
+    <div class="tos-section">
+      <h2>8. Intellectual Property</h2>
+      <p>All intellectual property rights in the Site, including but not limited to text, graphics, logos, icons, images, audio clips, digital downloads, and software, are the property of PXL Kraft or its content suppliers and are protected by United States and international copyright, trademark, patent, and other intellectual property laws.</p>
+      <p>You may not reproduce, distribute, modify, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any of the material on our Site without our prior written consent, except as follows:</p>
+      <ul>
+        <li>Your browser may temporarily store copies of materials in RAM incidental to your accessing and viewing those materials.</li>
+        <li>You may store files that are automatically cached by your browser for display enhancement purposes.</li>
+        <li>You may print or download one copy of a reasonable number of pages of the Site for your own personal, non-commercial use and not for further reproduction, publication, or distribution.</li>
+      </ul>
+    </div>
+
+    <hr class="tos-divider" />
+
+    <!-- 9. Client Responsibilities -->
+    <div class="tos-section">
+      <h2>9. Client Responsibilities</h2>
+      <p>To ensure timely and effective delivery of services, you agree to:</p>
+
+      <h3>9.1 Providing Content</h3>
+      <p>You are responsible for providing all necessary content for your website in a timely manner, including business information, service descriptions, images, logos, and any other materials needed to complete your website. Delays in providing content may result in extended delivery timelines.</p>
+
+      <h3>9.2 Timely Feedback</h3>
+      <p>You agree to review drafts and provide feedback within a reasonable timeframe (typically within 48 hours of receiving a draft). Failure to respond in a timely manner may delay the launch of your website and does not constitute grounds for a refund or credit.</p>
+
+      <h3>9.3 Accurate Information</h3>
+      <p>You represent and warrant that all information you provide to PXL Kraft is accurate, current, and complete. You are solely responsible for any errors or omissions in the content you provide. PXL Kraft is not liable for any issues arising from inaccurate or outdated information supplied by you.</p>
+
+      <h3>9.4 Legal Compliance</h3>
+      <p>You are responsible for ensuring that all content you provide and all activities conducted through your website comply with applicable local, state, national, and international laws and regulations, including but not limited to licensing requirements for your trade or profession.</p>
+    </div>
+
+    <hr class="tos-divider" />
+
+    <!-- 10. Website Acceptable Use -->
+    <div class="tos-section">
+      <h2>10. Website Acceptable Use</h2>
+      <p>You agree not to use the website or services provided by PXL Kraft to:</p>
+      <ul>
+        <li>Publish, distribute, or display any content that is unlawful, harmful, threatening, abusive, harassing, defamatory, vulgar, obscene, or otherwise objectionable.</li>
+        <li>Infringe upon any third party's intellectual property rights, privacy rights, or other legal rights.</li>
+        <li>Distribute malware, viruses, or any other harmful software or code.</li>
+        <li>Engage in any activity that could disable, overburden, or impair the proper functioning of our servers or networks.</li>
+        <li>Use the website for any illegal purpose or in violation of any local, state, national, or international law.</li>
+        <li>Collect or store personal data about other users without their express consent.</li>
+        <li>Misrepresent your identity or affiliation with any person or organization.</li>
+      </ul>
+      <p>PXL Kraft reserves the right to suspend or terminate your website immediately if we determine, in our sole discretion, that you have violated this acceptable use policy.</p>
+    </div>
+
+    <hr class="tos-divider" />
+
+    <!-- 11. Warranties and Disclaimers -->
+    <div class="tos-section">
+      <h2>11. Warranties and Disclaimers</h2>
+
+      <h3>11.1 Service Warranty</h3>
+      <p>PXL Kraft warrants that all services will be performed in a professional and workmanlike manner consistent with generally accepted industry standards. If you are not satisfied with the initial website build, we will work with you to make reasonable revisions at no additional cost.</p>
+
+      <h3>11.2 Disclaimer of Warranties</h3>
+      <div class="info-box">
+        <p><strong>EXCEPT AS EXPRESSLY SET FORTH HEREIN, THE SITE AND ALL SERVICES ARE PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS, IMPLIED, OR STATUTORY. PXL KRAFT SPECIFICALLY DISCLAIMS ALL IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT.</strong></p>
+      </div>
+      <p>PXL Kraft does not warrant that:</p>
+      <ul>
+        <li>The Site or services will be uninterrupted, timely, secure, or error-free.</li>
+        <li>The results that may be obtained from the use of the services will be accurate or reliable.</li>
+        <li>The quality of any services, information, or other material obtained through the services will meet your expectations.</li>
+        <li>Any specific level of search engine ranking, traffic, or lead generation will be achieved.</li>
+      </ul>
+
+      <h3>11.3 Consumer Protection Notice</h3>
+      <p>Nothing in this section is intended to limit any rights you may have under mandatory consumer protection laws in your jurisdiction. If you are a consumer in the European Union, European Economic Area, or the United Kingdom, you may have statutory rights that cannot be excluded or limited by contract, and those rights remain unaffected by these Terms.</p>
+    </div>
+
+    <hr class="tos-divider" />
+
+    <!-- 12. Limitation of Liability -->
+    <div class="tos-section">
+      <h2>12. Limitation of Liability</h2>
+      <div class="info-box">
+        <p><strong>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL PXL KRAFT, ITS OFFICERS, DIRECTORS, EMPLOYEES, AGENTS, OR AFFILIATES BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, DATA, BUSINESS OPPORTUNITIES, OR GOODWILL, ARISING OUT OF OR IN CONNECTION WITH THESE TERMS OR THE USE OF OUR SERVICES, WHETHER BASED ON WARRANTY, CONTRACT, TORT (INCLUDING NEGLIGENCE), OR ANY OTHER LEGAL THEORY.</strong></p>
+      </div>
+      <p>PXL Kraft's total aggregate liability to you for all claims arising out of or relating to these Terms or our services shall not exceed the total amount you have paid to PXL Kraft during the twelve (12) months immediately preceding the event giving rise to the claim.</p>
+      <p>Some jurisdictions do not allow the exclusion or limitation of certain damages. In such jurisdictions, the limitations and exclusions in this section shall apply to the fullest extent permitted by applicable law.</p>
+    </div>
+
+    <hr class="tos-divider" />
+
+    <!-- 13. Indemnification -->
+    <div class="tos-section">
+      <h2>13. Indemnification</h2>
+      <p>You agree to indemnify, defend, and hold harmless PXL Kraft, its officers, directors, employees, agents, licensors, and suppliers from and against any and all claims, liabilities, damages, losses, costs, expenses, or fees (including reasonable attorneys' fees) that arise from or relate to:</p>
+      <ul>
+        <li>Your use of or inability to use the Site or services.</li>
+        <li>Your violation of these Terms.</li>
+        <li>Your violation of any third party's rights, including intellectual property rights, privacy rights, or proprietary rights.</li>
+        <li>Any content you provide for inclusion on your website.</li>
+        <li>Any breach of your representations and warranties set forth in these Terms.</li>
+      </ul>
+      <p>This indemnification obligation shall survive the termination or expiration of these Terms and your use of the Site and services. If you are a consumer in a jurisdiction where indemnification clauses are restricted, this clause applies only to the extent permitted by your local law.</p>
+    </div>
+
+    <hr class="tos-divider" />
+
+    <!-- 14. Governing Law and Dispute Resolution -->
+    <div class="tos-section">
+      <h2>14. Governing Law and Dispute Resolution</h2>
+
+      <h3>14.1 Governing Law</h3>
+      <p>These Terms shall be governed by and construed in accordance with the laws of the State of Washington, United States of America, without regard to its conflict of law provisions. Any legal action or proceeding arising under these Terms shall be brought exclusively in the federal or state courts located in the State of Washington, and the parties hereby consent to personal jurisdiction and venue therein.</p>
+
+      <h3>14.2 EU Consumer Protection Carve-Out</h3>
+      <div class="info-box">
+        <p>If you are a consumer residing in the European Union or the European Economic Area, nothing in these Terms shall deprive you of the protection afforded to you by provisions that cannot be derogated from by agreement by virtue of the law of your habitual residence. In particular, you retain the right to bring proceedings in the courts of the EU Member State in which you are domiciled, in accordance with Regulation (EU) No 1215/2012 (Brussels I Recast).</p>
+        <p>Additionally, if you reside in the EU, you may also have recourse to the right of withdrawal as provided for under the EU Consumer Rights Directive (Directive 2011/83/EU), subject to the exceptions therein.</p>
+      </div>
+
+      <h3>14.3 EU Online Dispute Resolution</h3>
+      <p>In accordance with Regulation (EU) No 524/2013, the European Commission provides an Online Dispute Resolution (ODR) platform for consumers in the EU. You can access the ODR platform at <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr</a>. Our email address for the purposes of this platform is <a href="mailto:hello@pxlkraft.com">hello@pxlkraft.com</a>.</p>
+
+      <h3>14.4 Informal Resolution</h3>
+      <p>Before filing any formal legal proceeding, you agree to first attempt to resolve the dispute informally by contacting us at <a href="mailto:hello@pxlkraft.com">hello@pxlkraft.com</a>. We will attempt to resolve the dispute informally within thirty (30) days. If the dispute is not resolved within this period, either party may proceed with formal legal remedies.</p>
+    </div>
+
+    <hr class="tos-divider" />
+
+    <!-- 15. Force Majeure -->
+    <div class="tos-section">
+      <h2>15. Force Majeure</h2>
+      <p>PXL Kraft shall not be liable for any delay or failure in performance resulting from causes beyond our reasonable control, including but not limited to acts of God, natural disasters, war, terrorism, riots, embargoes, acts of civil or military authorities, fire, floods, epidemics or pandemics, power outages, internet or telecommunications failures, strikes, labor shortages, government restrictions, or any other event that is beyond PXL Kraft's reasonable control.</p>
+      <p>In the event of a force majeure occurrence, we will make reasonable efforts to notify you promptly and resume performance as soon as reasonably practicable. If the force majeure event continues for more than sixty (60) days, either party may terminate the subscription by providing written notice to the other party.</p>
+    </div>
+
+    <hr class="tos-divider" />
+
+    <!-- 16. Severability -->
+    <div class="tos-section">
+      <h2>16. Severability</h2>
+      <p>If any provision of these Terms is held to be invalid, illegal, or unenforceable by a court of competent jurisdiction, such provision shall be modified to the minimum extent necessary to make it enforceable, or if modification is not possible, severed from these Terms. The invalidity, illegality, or unenforceability of any provision shall not affect the validity, legality, or enforceability of the remaining provisions, which shall continue in full force and effect.</p>
+    </div>
+
+    <hr class="tos-divider" />
+
+    <!-- 17. Modifications to Terms -->
+    <div class="tos-section">
+      <h2>17. Modifications to Terms</h2>
+      <p>PXL Kraft reserves the right to modify, update, or revise these Terms at any time at our sole discretion. When we make material changes, we will:</p>
+      <ul>
+        <li>Update the "Last updated" date at the top of these Terms.</li>
+        <li>Notify active subscribers of material changes via email at least thirty (30) days before the changes take effect.</li>
+        <li>Post the updated Terms on this page.</li>
+      </ul>
+      <p>Your continued use of the Site or services after the effective date of any modifications constitutes your acceptance of the updated Terms. If you do not agree to the modified Terms, you may cancel your subscription in accordance with Section 5.</p>
+    </div>
+
+    <hr class="tos-divider" />
+
+    <!-- 18. Entire Agreement -->
+    <div class="tos-section">
+      <h2>18. Entire Agreement</h2>
+      <p>These Terms, together with our <a href="privacy-policy.html">Privacy Policy</a> and any additional agreements or terms referenced herein, constitute the entire agreement between you and PXL Kraft regarding your use of the Site and services. These Terms supersede all prior and contemporaneous understandings, agreements, representations, and warranties, both written and oral, regarding the subject matter hereof.</p>
+      <p>No waiver of any term or condition set forth in these Terms shall be deemed a further or continuing waiver of such term or condition, or a waiver of any other term or condition. Any failure by PXL Kraft to assert a right or provision under these Terms shall not constitute a waiver of such right or provision.</p>
+    </div>
+
+    <hr class="tos-divider" />
+
+    <!-- 19. Contact Information -->
+    <div class="tos-section">
+      <h2>19. Contact Information</h2>
+      <p>If you have any questions, concerns, or requests regarding these Terms of Service, please contact us:</p>
+      <div class="info-box">
+        <p><strong>PXL Kraft</strong></p>
+        <p>Email: <a href="mailto:hello@pxlkraft.com">hello@pxlkraft.com</a></p>
+      </div>
+      <p>We aim to respond to all inquiries within two (2) business days.</p>
+    </div>
+
+  </div>
+
+  <!-- BACK TO TOP -->
+  <div class="back-to-top">
+    <a href="#">Back to top &uarr;</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="index.html" class="footer-logo">PXL Kraft</a>
+    <ul class="footer-links">
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#how">How It Works</a></li>
+      <li><a href="index.html#results">Results</a></li>
+      <li><a href="index.html#faq">FAQ</a></li>
+      <li><a href="https://calendly.com/freesite/website" target="_blank" rel="noopener">Book a Call</a></li>
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      <li><a href="terms-of-service.html" class="active">Terms of Service</a></li>
+    </ul>
+    <p class="footer-copy">&copy; 2026 PXL Kraft. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+    // Set scrolled state on load if already scrolled
+    if (window.scrollY > 40) navbar.classList.add('scrolled');
+  </script>
+</body>
+</html>
